@@ -142,8 +142,12 @@ GROUP BY p.id;
 ### 🖼️ Diagrama do Banco
 <p align="center"> <img src="./diagrama_lanchonete.png" width="100%"> </p>
 ### 🚀 Tecnologias Utilizadas
+
+```
 PostgreSQL
 SQL
 Modelagem Relacional
-👨‍💻 Autor
+```
+
+### 👨‍💻 Autor
 Adriano Amorim Agra
