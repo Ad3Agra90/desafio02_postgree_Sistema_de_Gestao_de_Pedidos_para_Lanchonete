@@ -49,7 +49,11 @@ CREATE TABLE clientes (
     telefone VARCHAR(20),
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-🍔 Tabela: produtos
+```
+
+### 🍔 Tabela: produtos
+
+```sql
 CREATE TABLE produtos (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -57,7 +61,10 @@ CREATE TABLE produtos (
     preco NUMERIC(10,2) NOT NULL,
     ativo BOOLEAN DEFAULT TRUE
 );
-🧾 Tabela: pedidos
+```
+
+### 🧾 Tabela: pedidos
+```sql
 CREATE TABLE pedidos (
     id SERIAL PRIMARY KEY,
     cliente_id INT REFERENCES clientes(id),
@@ -65,7 +72,10 @@ CREATE TABLE pedidos (
     status VARCHAR(30) DEFAULT 'PENDENTE',
     total NUMERIC(10,2)
 );
-🛒 Tabela: itens_pedido
+```
+
+### 🛒 Tabela: itens_pedido
+```sql
 CREATE TABLE itens_pedido (
     id SERIAL PRIMARY KEY,
     pedido_id INT REFERENCES pedidos(id) ON DELETE CASCADE,
@@ -73,7 +83,9 @@ CREATE TABLE itens_pedido (
     quantidade INT NOT NULL,
     preco_unitario NUMERIC(10,2) NOT NULL
 );
-💳 Tabela: pagamentos
+```
+### 💳 Tabela: pagamentos
+```sql
 CREATE TABLE pagamentos (
     id SERIAL PRIMARY KEY,
     pedido_id INT REFERENCES pedidos(id),
@@ -81,49 +93,57 @@ CREATE TABLE pagamentos (
     valor NUMERIC(10,2),
     pago BOOLEAN DEFAULT FALSE
 );
-🧪 Dados de Teste
+```
+### 🧪 Dados de Teste
+```sql
 INSERT INTO clientes (nome, telefone) VALUES
 ('João Silva', '81999999999'),
 ('Maria Souza', '81988888888');
-
+```
+```sql
 INSERT INTO produtos (nome, descricao, preco) VALUES
 ('Hambúrguer', 'Hambúrguer artesanal', 15.00),
 ('Refrigerante', 'Lata 350ml', 5.00),
 ('Batata Frita', 'Porção média', 10.00);
-🧾 Simulação de Pedido
+```
+### 🧾 Simulação de Pedido
+```sql
 INSERT INTO pedidos (cliente_id, total)
 VALUES (1, 30.00);
-
+```
+```sql
 INSERT INTO itens_pedido (pedido_id, produto_id, quantidade, preco_unitario)
 VALUES
 (1, 1, 1, 15.00),
 (1, 2, 1, 5.00),
 (1, 3, 1, 10.00);
-
+```
+```sql
 INSERT INTO pagamentos (pedido_id, tipo, valor, pago)
 VALUES (1, 'PIX', 30.00, TRUE);
-🔎 Consultas SQL
+```
+### 🔎 Consultas SQL
 -- Listar pedidos com cliente
+```sql
 SELECT p.id, c.nome, p.data_pedido, p.status, p.total
 FROM pedidos p
 JOIN clientes c ON p.cliente_id = c.id;
-
+```
 -- Calcular total por pedido
+```sql
 SELECT 
     p.id,
     SUM(i.quantidade * i.preco_unitario) AS total
 FROM pedidos p
 JOIN itens_pedido i ON p.id = i.pedido_id
 GROUP BY p.id;
+```
 
-🖼️ Diagrama do Banco
+### 🖼️ Diagrama do Banco
 <p align="center"> <img src="./diagrama_lanchonete.png" width="100%"> </p>
-🚀 Tecnologias Utilizadas
+### 🚀 Tecnologias Utilizadas
 PostgreSQL
 SQL
 Modelagem Relacional
 👨‍💻 Autor
-
 Adriano Amorim Agra
-
-📌
